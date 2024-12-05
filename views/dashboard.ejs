@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinAnalyzer</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="app-header bg-primary text-white p-4">
+    <h1>FinAnalyzer</h1>
+  </header>
+
+  <div class="container-fluid mt-4">
+    <div class="row">
+      
+      <% if (success) { %>
+        <div style="color: green;"><%= success %></div>
+      <% } %>
+      <div class="col-md-3">
+        <div class="list-group">
+          <button id="tab-dashboard" class="list-group-item list-group-item-action active" data-target="dashboard">Dashboard</button>
+          <button id="tab-gastos" class="list-group-item list-group-item-action" data-target="gastos">Últimos Gastos</button>
+          <button id="tab-login" class="list-group-item list-group-item-action" data-target="login">Log In/Out</button>
+        </div>
+      </div>
+
+      
+      <div class="col-md-9">
+        <!-- tab: dashboard -->
+        <div id="dashboard" class="tab active">
+          <div class="row">
+            <!-- card para los charts-->
+            <div class="col-md-4 mb-4">
+              <div class="card">
+                <div class="card-header">Ingresos vs Egresos</div>
+                <div class="card-body">
+                  <canvas id="chart1"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="card">
+                <div class="card-header">Gastos por Departamento</div>
+                <div class="card-body">
+                  <canvas id="chart2"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="card">
+                <div class="card-header">Tendencia de Ingresos</div>
+                <div class="card-body">
+                  <canvas id="chart3"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="card">
+                <div class="card-header">Distribución de Gastos</div>
+                <div class="card-body">
+                  <canvas id="chart4"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="card">
+                <div class="card-header">Proyección Anual</div>
+                <div class="card-body">
+                  <canvas id="chart5"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="card">
+                <div class="card-header">Rendimiento Mensual</div>
+                <div class="card-body">
+                  <canvas id="chart6"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+
+
+
+        <!-- tab: ultimos Gastos -->
+        <div id="gastos" class="tab">
+        </div>
+
+        <!-- tab: Log In/Out -->
+        <div id="login" class="tab">
+          <a href="/register" class="btn btn-primary mb-2">Registrar</a>
+          <a href="/login" class="btn btn-secondary">Iniciar Sesión</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+  
+      document.querySelectorAll(".list-group-item").forEach(button => {
+        button.addEventListener("click", () => {
+  
+          document.querySelectorAll(".list-group-item").forEach(btn => btn.classList.remove("active"));
+          document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
+
+            button.classList.add("active");
+          const targetTab = button.getAttribute("data-target");
+          document.getElementById(targetTab).classList.add("active");
+        });
+      });
+
+  
+      const ctx1 = document.getElementById('chart1').getContext('2d');
+      const ctx2 = document.getElementById('chart2').getContext('2d');
+      const ctx3 = document.getElementById('chart3').getContext('2d');
+
+      new Chart(ctx1, {
+        type: 'line',
+        data: {
+          labels: ['Enero', 'Febrero', 'Marzo'],
+          datasets: [{
+            label: 'Ingresos',
+            data: [1000, 2000, 1500],
+            borderColor: 'blue',
+            fill: false
+          }, {
+            label: 'Egresos',
+            data: [500, 800, 700],
+            borderColor: 'red',
+            fill: false
+          }]
+        }
+      });
+
+      new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels: ['Ventas', 'Marketing', 'I+D'],
+          datasets: [{
+            label: 'Gastos',
+            data: [200, 300, 150],
+            backgroundColor: ['blue', 'green', 'orange']
+          }]
+        }
+      });
+
+      new Chart(ctx3, {
+        type: 'line',
+        data: {
+          labels: ['Enero', 'Febrero', 'Marzo'],
+          datasets: [{
+            label: 'Tendencia de Ingresos',
+            data: [1000, 1200, 1400],
+            borderColor: 'purple',
+            fill: false
+          }]
+        }
+      });
+    });
+  </script>
+  
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>
+

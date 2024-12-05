@@ -1,0 +1,13 @@
+{
+    "expenses": [
+      { "date": "2024-11-01", "description": "Compra de suministros", "amount": 150 },
+      { "date": "2024-11-05", "description": "Pago de servicios", "amount": 200 },
+      { "date": "2024-11-10", "description": "Reparaciones", "amount": 300 }
+    ],
+    "charts": {
+      "monthly": [100, 200, 300],
+      "quarterly": [400, 500, 600],
+      "yearly": [700, 800, 900]
+    }
+  }
+  
